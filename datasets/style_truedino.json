@@ -1,0 +1,99 @@
+[
+    {
+        "selector": "node",
+        "style": {
+            "content": "data(label)"
+        }
+    },
+    {
+        "selector": ".logo",
+        "style": {
+            "width": "120",
+            "height": "120",
+            "background-color": "#c0c0c0",
+            "background-image": "./src/lib/assets/trenord-central-node.png"
+        }
+    },
+    {
+        "selector": ".logo-customized",
+        "style": {
+            "width": "60",
+            "height": "60",
+            "background-color": "#c0c0c0",
+            "background-image": "./src/lib/assets/trenord-central-node.png",
+            "background-width": ["38px", "35px", "35px"],
+            "background-height": ["38px", "35px", "35px"],
+            "bounds-expansion": "65",
+            "background-fit": "contain"
+        }
+    },
+    {
+        "selector": ".level1",
+        "style": {
+            "width": 80,
+            "height": 80,
+            "font-size": "12px",
+            "text-halign": "center",
+            "text-valign": "center",
+            "text-wrap": "wrap",
+            "color": "black",
+            "background-fill": "radial-gradient",
+            "background-gradient-stop-colors": "#FF8300 #FFFFFF",
+            "background-gradient-stop-positions": "20 70 75"
+        }
+    },
+    {
+        "selector": ".edge1",
+        "style": {
+            "width": 1,
+            "height": 80
+        }
+    },
+    {
+        "selector": ".group",
+        "style": {
+            "background-color": "white",
+            "border-color": "white",
+            "shape": "octagon"
+        }
+    },
+    {
+        "selector": ".level2",
+        "style": {
+            "width": 40,
+            "height": 40,
+            "background-color": "#FFFFFF",
+            "font-size": "12px",
+            "border-opacity": "1",
+            "border-width": "6px",
+            "border-color": "#16093E",
+            "text-wrap": "wrap",
+            "text-halign": "right"
+        }
+    },
+    {
+        "selector": ".edge2",
+        "style": {
+            "width": 1,
+            "height": 50
+        }
+    },
+    {
+        "selector": "node.select-node",
+        "style": {
+            "background-color": "#FFFFFF",
+            "font-size": "12px",
+            "border-opacity": "1",
+            "border-width": "6px",
+            "border-color": "#FF8300",
+            "text-wrap": "wrap",
+            "text-halign": "right"
+        }
+    },
+    {
+        "selector": "node.multi-select-node",
+        "style": {
+            "background-color": "#0061B1"
+        }
+    }
+]

@@ -1,0 +1,121 @@
+[
+    {
+        "id": 1,
+        "label": "VP Accounting",
+        "children": [
+            {
+                "id": 2,
+                "label": "iWay",
+                "children": [
+                    {
+                        "id": 3,
+                        "label": "Universidad de Especialidades del Espíritu Santo"
+                    },
+                    {
+                        "id": 4,
+                        "label": "Marmara University"
+                    },
+                    {
+                        "id": 5,
+                        "label": "Baghdad College of Pharmacy"
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "label": "KDB",
+                "children": [
+                    {
+                        "id": 7,
+                        "label": "Dublin Institute of Technology"
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "label": "Justice",
+                "children": [
+                    {
+                        "id": 9,
+                        "label": "Baylor University"
+                    },
+                    {
+                        "id": 10,
+                        "label": "Massachusetts College of Art"
+                    },
+                    {
+                        "id": 11,
+                        "label": "Universidad Técnica Latinoamericana"
+                    },
+                    {
+                        "id": 12,
+                        "label": "Saint Louis College"
+                    },
+                    {
+                        "id": 13,
+                        "label": "Scott Christian University"
+                    }
+                ]
+            },
+            {
+                "id": 14,
+                "label": "Norton Utilities",
+                "children": [
+                    {
+                        "id": 15,
+                        "label": "National University of Uzbekistan"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "label": "Database Administrator III",
+        "children": [
+            {
+                "id": 17,
+                "label": "TFS",
+                "children": [
+                    {
+                        "id": 18,
+                        "label": "University of Jazeera"
+                    },
+                    {
+                        "id": 19,
+                        "label": "Technical University of Crete"
+                    },
+                    {
+                        "id": 20,
+                        "label": "Ecole Nationale Supérieure d'Agronomie et des Industries Alimentaires"
+                    },
+                    {
+                        "id": 21,
+                        "label": "Ho Chi Minh City University of Natural Sciences"
+                    }
+                ]
+            }
+        ],
+        "disabled": true
+    },
+    {
+        "id": 22,
+        "label": "Assistant Manager",
+        "children": [
+            {
+                "id": 23,
+                "label": "Risk Analysis",
+                "children": [
+                    {
+                        "id": 24,
+                        "label": "Seijo University"
+                    },
+                    {
+                        "id": 25,
+                        "label": "University of Economics Varna"
+                    }
+                ]
+            }
+        ]
+    }
+]
