@@ -7,7 +7,7 @@ from dash import html, dcc
 from app import app
 from app import server
 import pages.home as home
-import pages.insert as importer 
+import pages.insert as importer
 import pages.analytics as analytics
 import pages.report as report
 import components.sidebar as sidebar
@@ -32,7 +32,7 @@ def display_page(pathname):
         return importer.layout
     if pathname == '/apps/analytics':
         return analytics.layout
-    if pathname == '/apps/year':
+    if pathname == '/apps/report':
         return report.layout
     else:
         return home.layout

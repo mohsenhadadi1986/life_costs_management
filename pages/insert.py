@@ -20,8 +20,6 @@ layout = html.Div([
         )
     ], className="item-input"),
 
-    # html.Hr(),
-
     html.Div(children=[
         dbc.Label("Reason", html_for="dropdown"),
         dcc.Dropdown(id='cost-reason-dropdown', placeholder="selec a reason"),
@@ -49,8 +47,18 @@ layout = html.Div([
     html.Hr(),
 
     html.Div(id='display-selected-values'),
-
+    html.Button("Submit")
 ])
+
+
+def summarized_results(reason, category, amount, date):
+    return html.Div(children=[
+        html.P(
+            reason + " in the category " + category
+            + " with amount of " +
+            str(amount) + " € in " + date + " has rgistered."
+        )
+    ])
 
 
 @app.callback(
@@ -80,6 +88,12 @@ def set_reason_cost_value(available_options):
      Input("dtrue", "value"),
      Input('my-date-picker-single', 'date')])
 def set_display_children(selected_category, selected_cost_reason, input_number, date):
-    return u'{} in the {} category with amount of {} € in {} has rgistered.'.format(
-        selected_cost_reason, selected_category, input_number, date
-    )
+    # return u'{} in the {} category with amount of {} € in {} has rgistered.'.format(
+    #     selected_cost_reason, selected_category, input_number, date
+    # )
+    if selected_category is None:
+        return summarized_results(selected_cost_reason, '', '', date)
+    if input_number is None:
+        return summarized_results(selected_cost_reason, selected_category, '', date)
+    else:
+        return summarized_results(selected_cost_reason, selected_category, input_number, date)
