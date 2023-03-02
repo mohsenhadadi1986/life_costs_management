@@ -5,9 +5,8 @@ from dash import html, dcc
 
 # Connect to main app.py file
 from app import app
-from app import server
 import pages.home as home
-import pages.insert as importer
+import pages.importer as importer
 import pages.analytics as analytics
 import pages.report as report
 import components.sidebar as sidebar
@@ -39,4 +38,4 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=2000)

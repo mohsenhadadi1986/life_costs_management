@@ -2,14 +2,19 @@ from dash import Dash, dcc, html, Input, Output
 from datetime import date
 import dash_bootstrap_components as dbc
 from app import app
+import requests
+import flask
+import json
 
 
-all_options = {
-    'Input': ['The Last Balance', 'Other'],
-    'Income': [u'Salary', 'Tickets', 'Awards', 'Bonuses', 'Other'],
-    'Cost': ['Rent', 'Electric Buill', 'Food', 'Internet', 'Insurance',
-             'Fuel', 'Funny day', 'Car maintenance', 'Clouthes']
-}
+def get_data():
+    re = requests.get('http://127.0.0.1:5000/api/v1/dropdown_options').content
+    response = json.loads(re)
+    return response
+
+
+all_options = get_data()
+
 layout = html.Div([
     html.Div(children=[
         dbc.Label("Category", html_for="dropdown"),
@@ -47,18 +52,33 @@ layout = html.Div([
     html.Hr(),
 
     html.Div(id='display-selected-values'),
-    html.Button("Submit")
+    html.Button("Submit", id="submit-val", className="submit-button")
 ])
 
 
 def summarized_results(reason, category, amount, date):
-    return html.Div(children=[
-        html.P(
-            reason + " in the category " + category
-            + " with amount of " +
-            str(amount) + " € in " + date + " has rgistered."
-        )
-    ])
+    dict_data = {}
+    if category is not None:
+        if amount is not None:
+            dict_data['category'] = category
+            dict_data['reason'] = reason
+            dict_data['value'] = amount
+            dict_data['import_date'] = date
+            print(dict_data)
+            response = requests.post(
+                'http://127.0.0.1:5000/api/v1/import_data', json=dict_data).content
+            return html.Div(children=[
+                html.P(
+                    reason.upper() + " in the category " + category.upper()
+                    + " with amount of " +
+                    str(amount) + " € in " + date +
+                    " has rgistered. The submit button has trigged."
+                ), html.P(json.loads(response)['response'])
+            ])
+        else:
+            return "Please insert an amount"
+    else:
+        return "Please seletc a category"
 
 
 @app.callback(
@@ -86,14 +106,12 @@ def set_reason_cost_value(available_options):
     [Input('categories-dropdown', 'value'),
      Input('cost-reason-dropdown', 'value'),
      Input("dtrue", "value"),
-     Input('my-date-picker-single', 'date')])
-def set_display_children(selected_category, selected_cost_reason, input_number, date):
+     Input('my-date-picker-single', 'date'),
+     Input('submit-val', 'n_clicks'),])
+def set_display_children(selected_category, selected_cost_reason, input_number, date, n_clicks):
     # return u'{} in the {} category with amount of {} € in {} has rgistered.'.format(
     #     selected_cost_reason, selected_category, input_number, date
     # )
-    if selected_category is None:
-        return summarized_results(selected_cost_reason, '', '', date)
-    if input_number is None:
-        return summarized_results(selected_cost_reason, selected_category, '', date)
-    else:
-        return summarized_results(selected_cost_reason, selected_category, input_number, date)
+    if n_clicks:
+        return summarized_results(selected_cost_reason,
+                                  selected_category, input_number, date)
