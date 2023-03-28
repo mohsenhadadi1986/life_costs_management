@@ -1,4 +1,4 @@
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, dcc, html, Input, Output, State, callback_context
 from datetime import date
 import dash_bootstrap_components as dbc
 from app import app
@@ -103,15 +103,16 @@ def set_reason_cost_value(available_options):
 
 @app.callback(
     Output('display-selected-values', 'children'),
-    [Input('categories-dropdown', 'value'),
-     Input('cost-reason-dropdown', 'value'),
-     Input("dtrue", "value"),
-     Input('my-date-picker-single', 'date'),
-     Input('submit-val', 'n_clicks'),])
-def set_display_children(selected_category, selected_cost_reason, input_number, date, n_clicks):
-    # return u'{} in the {} category with amount of {} € in {} has rgistered.'.format(
-    #     selected_cost_reason, selected_category, input_number, date
-    # )
-    if n_clicks:
-        return summarized_results(selected_cost_reason,
-                                  selected_category, input_number, date)
+    [Input('submit-val', 'n_clicks')],
+    [State('categories-dropdown', 'value'),
+     State('cost-reason-dropdown', 'value'),
+     State("dtrue", "value"),
+     State('my-date-picker-single', 'date')])
+def set_display_children(n_clicks, selected_category, selected_cost_reason, input_number, date):
+    if n_clicks is None:
+        return ''
+
+    if n_clicks > 0:
+        return summarized_results(selected_cost_reason, selected_category, input_number, date)
+    else:
+        return ''

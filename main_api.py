@@ -1,6 +1,7 @@
 from flask import Flask, request
 import flask
 from core.api.import_page import import_dropdown_query, import_data_query
+from core.api.report_page import report_table_query
 import json
 from loguru import logger
 
@@ -30,7 +31,7 @@ def api_dropdown_options():
 def api_dropdown_import_data():
     '''
     This POST api forward the following data into db 
-        category1,reason, value, import_date}
+        category,reason, value, import_date
 
     Returns:
            True or False
@@ -51,6 +52,24 @@ def api_dropdown_import_data():
         if result is True:
             response = flask.jsonify({
                 'response': 'the data has inserted successfully.'
+            })
+            return response, HTTP_SUCCESSFUL_CODE
+    except Exception as e:
+        logger.info(f'{e}')
+        response = flask.jsonify(False)
+        return response, HTTP_ERROR_CODE
+
+
+@app.route('/api/v1/report/<year>', methods=['GET'])
+def api_report(year: str):
+    '''
+    This GET api provides a csv file stored in datasets folder is called by report_year.csv
+    '''
+    try:
+        report = report_table_query(year)
+        if report is True:
+            response = flask.jsonify({
+                'response': 'the data has loaded successfully for year {}'.format(year)
             })
             return response, HTTP_SUCCESSFUL_CODE
     except Exception as e:
