@@ -24,6 +24,7 @@ report_year = [2022, 2023, 2024]
 
 
 layout = html.Div([
+    html.H1('Report'),
     html.Div(children=[
         dbc.Label("Select Year", html_for="dropdown"),
         dcc.Dropdown(

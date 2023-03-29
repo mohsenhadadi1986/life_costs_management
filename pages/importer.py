@@ -16,6 +16,7 @@ def get_data():
 all_options = get_data()
 
 layout = html.Div([
+    html.H1('Import'),
     html.Div(children=[
         dbc.Label("Category", html_for="dropdown"),
         dcc.Dropdown(

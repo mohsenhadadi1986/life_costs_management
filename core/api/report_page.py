@@ -22,8 +22,8 @@ cursor = cnx.cursor()
 # execute a query
 
 
-def execute_query(query):
-    cursor.execute(query)
+# def execute_query(query):
+#     cursor.execute(query)
 
 
 DB_NAME = config['dbname']
