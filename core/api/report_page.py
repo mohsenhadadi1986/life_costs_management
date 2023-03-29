@@ -54,6 +54,7 @@ GROUP BY
   category,
   reason
 ORDER BY
+  id,
   category,
   reason
     """

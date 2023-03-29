@@ -34,8 +34,27 @@ layout = html.Div([
             placeholder="select a year"
         )
     ], className="item-input"),
-    dash_table.DataTable(data=df.to_dict('records'), columns=[
-                         {"name": i, "id": i} for i in df.columns], id='table'),
+    dash_table.DataTable(data=df.to_dict('records'),
+                         columns=[
+                         {"name": i, "id": i} for i in df.columns],
+                         id='table',
+                         style_cell={'textAlign': 'left', 'padding': '5px'},
+                         style_as_list_view=True,
+                         style_data={
+        'color': 'black',
+        'backgroundColor': 'white'
+    },
+        style_data_conditional=[
+        {
+            'if': {'row_index': 'odd'},
+            'backgroundColor': 'rgb(220, 220, 220)',
+        }
+    ],
+        style_header={
+        'backgroundColor': 'rgb(210, 210, 210)',
+        'color': 'black',
+        'fontWeight': 'bold'
+    }),
 ], className="report-container")
 
 # Define the callback function
