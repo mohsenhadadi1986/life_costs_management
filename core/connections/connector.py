@@ -15,14 +15,14 @@ cursor = cnx.cursor()
 # execute a query
 
 
-def execute_query(query):
-    cursor.execute(query)
-    # cursor.close()
-    # cnx.close()
+# def execute_query(query):
+#     cursor.execute(query)
+# cursor.close()
+# cnx.close()
 
 
 # fetch the data and print it
-for row in cursor.fetchall():
-    print(row)
+# for row in cursor.fetchall():
+#     print(row)
 
 # close the cursor and connection

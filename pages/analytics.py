@@ -39,8 +39,8 @@ layout = html.Div([
         html.Label('Select Title:'),
         dcc.Dropdown(
             id='title-dropdown',
-            options=[{'label': t, 'value': t} for t in df['TITLE'].unique()],
-            value=df['TITLE'].unique()[0]
+            # options=[],
+            # value=df['TITLE'].unique()[0]
         )
     ], className="item-input"),
     html.Div(children=[
@@ -59,9 +59,34 @@ layout = html.Div([
 ])
 
 
+@app.callback(
+    [Output('title-dropdown', 'options'),
+     Output('title-dropdown', 'value')],
+    Input('years-dropdown', 'value'),
+    # prevent_initial_call=True
+)
+def set_reason_cost_options(selected_year, df=df):
+    if selected_year is None:
+        return [], None
+    if selected_year == '2023':
+        return [{'label': i, 'value': i} for i in df['TITLE'].tolist()], df['TITLE'].tolist()[0]
+    elif selected_year != 2023:
+        get_report(selected_year)
+
+        PATH = pathlib.Path(__file__).parent
+        DATA_PATH = PATH.joinpath("../datasets").resolve()
+        df = pd.read_csv(DATA_PATH.joinpath(
+            'report_{}.csv'.format(selected_year)))
+        return [{'label': i, 'value': i} for i in df['TITLE'].tolist()], df['TITLE'].tolist()[0]
+
+
 @app.callback(Output('plot', 'figure'),
-              [Input('years-dropdown', 'value'), Input('title-dropdown', 'value'), Input('time-range-slider', 'value')])
-def set_display_children(year, title, time_range):
+              [
+    Input('title-dropdown', 'value'),
+                  Input('time-range-slider', 'value')],
+    State('years-dropdown', 'value'),
+    prevent_initial_call=True)
+def set_display_children(title, time_range, year):
 
     get_report(year)
 
@@ -73,7 +98,7 @@ def set_display_children(year, title, time_range):
     # select only columns within the time range
     filtered_df = filtered_df.iloc[:, time_range[0]+1:time_range[1]+2]
     x = filtered_df.columns.tolist()
-    y = filtered_df.iloc[0, :].tolist()
+    y = filtered_df.iloc[0, :].tolist() if filtered_df.size > 0 else []
     # Use the new DataFrame to create a Plotly line chart
     fig = px.line(x=x, y=y)
     fig.update_layout(title=title, xaxis_title='time', yaxis_title=title)

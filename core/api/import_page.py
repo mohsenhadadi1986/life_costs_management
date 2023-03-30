@@ -1,28 +1,11 @@
 import mysql.connector
 from mysql.connector import errorcode
-import os
-import json
-
-
-with open(os.path.join(os.getcwd(), 'core/connections/config.json')) as json_data_file:
-    config = json.load(json_data_file)
-
-# connect to the database
-cnx = mysql.connector.connect(user=config['user'], password=config['password'],
-                              host=config['host'], database=config['dbname'])
-
-# create a cursor object
-cursor = cnx.cursor()
-
-# execute a query
+from core.connections.connector import cnx, cursor
 
 
 def execute_query(query, data=[]):
     cursor.execute(query, data)
     cnx.commit()
-
-
-DB_NAME = config['dbname']
 
 
 def import_dropdown_query():
