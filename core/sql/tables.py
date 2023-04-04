@@ -1,31 +1,31 @@
 
 import mysql.connector
 from mysql.connector import errorcode
-# from connections.connector import execute_query, cnx, cursor
+from core.connections.connector import execute_query, cnx, cursor
 import os
 import json
 
-import mysql.connector
+# import mysql.connector
 
-with open(os.path.join(os.getcwd(), 'core/connections/config.json')) as json_data_file:
-    config = json.load(json_data_file)
+# with open(os.path.join(os.getcwd(), 'core/connections/config.json')) as json_data_file:
+#     config = json.load(json_data_file)
 
-# connect to the database
-cnx = mysql.connector.connect(user=config['user'], password=config['password'],
-                              host=config['host'], database=config['dbname'])
+# # connect to the database
+# cnx = mysql.connector.connect(user=config['user'], password=config['password'],
+#                               host=config['host'], database=config['dbname'])
 
-# create a cursor object
-cursor = cnx.cursor()
+# # create a cursor object
+# cursor = cnx.cursor()
 
-# execute a query
-
-
-def execute_query(query, data=[]):
-    cursor.execute(query, data)
-    cnx.commit()
+# # execute a query
 
 
-DB_NAME = config['dbname']
+# def execute_query(query, data=[]):
+#     cursor.execute(query, data)
+#     cnx.commit()
+
+
+# DB_NAME = config['dbname']
 
 TABLES = {}
 TABLES['import'] = (

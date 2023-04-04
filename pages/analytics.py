@@ -22,7 +22,7 @@ DATA_PATH = PATH.joinpath("../datasets").resolve()
 
 df = pd.read_csv(DATA_PATH.joinpath('report_{}.csv'.format(2023)))
 
-report_year = [2022, 2023, 2024]
+report_year = [2022, 2023]
 
 layout = html.Div([
     html.H1('Analytics'),
@@ -69,6 +69,12 @@ def set_reason_cost_options(selected_year, df=df):
     if selected_year is None:
         return [], None
     if selected_year == '2023':
+        get_report(selected_year)
+
+        PATH = pathlib.Path(__file__).parent
+        DATA_PATH = PATH.joinpath("../datasets").resolve()
+        df = pd.read_csv(DATA_PATH.joinpath(
+            'report_{}.csv'.format(selected_year)))
         return [{'label': i, 'value': i} for i in df['TITLE'].tolist()], df['TITLE'].tolist()[0]
     elif selected_year != 2023:
         get_report(selected_year)

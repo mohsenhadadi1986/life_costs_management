@@ -1,3 +1,5 @@
+# This file has moved to alembic revisions
+
 import mysql.connector
 from mysql.connector import errorcode
 # from connections.connector import execute_query, cnx, cursor

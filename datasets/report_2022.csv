@@ -1,5 +1,2 @@
 ID,TITLE,JAN,FEB,MAR,APR,MAY,JUN,JUL,AUG,SEP,OCT,NOV,DEC
-1.0,Income - Salary,,,,,,,,,,,,2500
-2.0,Cost - Rent,,,,,,,,,,,,725
-3.0,Cost - Gas,,,,,,,,,,,,25
-4.0,Input - Other,,,,,,,,,,,,500
+1,Income - Salary,,,,,,,,,,,,2500
