@@ -105,3 +105,29 @@
     font-size: 14px;
     color: #373232;
 }
+
+.input-button-report-download {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 5px 0px;
+}
+
+.costumized-dd {
+    margin-right: 15px;
+}
+
+.btn-report-download {
+    height: 35px;
+    border: 1px solid green;
+    border-radius: 3px;
+    cursor: pointer;
+    color: black;
+    background-color: rgba(12, 53, 119, 0.333);
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+}

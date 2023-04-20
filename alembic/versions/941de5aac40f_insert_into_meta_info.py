@@ -18,6 +18,8 @@ depends_on = None
 
 insert_meta_info_list = [('Input', 'The last balance Post bank'),
                          ('Input', 'The last balance Revolut bank'),
+                         ('Input', 'The last balanc San Paolo bank'),
+                         ('Input', 'The last balance Satispay'),
                          ('Input', 'Other'),
                          ('Income', 'Salary'),
                          ('Income', 'Ticket restaurant'),
@@ -39,6 +41,8 @@ insert_meta_info_list = [('Input', 'The last balance Post bank'),
                          ('Cost', 'Fuel'),
                          ('Cost', 'School'),
                          ('Cost', 'Car insurance'),
+                         ('Cost', 'Public transportation'),
+                         ('Cost', 'TARI'),
                          ('Cost', 'Other')
                          ]
 

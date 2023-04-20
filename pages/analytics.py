@@ -75,7 +75,7 @@ def set_reason_cost_options(selected_year, df=df):
         DATA_PATH = PATH.joinpath("../datasets").resolve()
         df = pd.read_csv(DATA_PATH.joinpath(
             'report_{}.csv'.format(selected_year)))
-        return [{'label': i, 'value': i} for i in df['TITLE'].tolist()], df['TITLE'].tolist()[0]
+        return [{'label': i, 'value': i} for i in df['TITLE'].tolist()], df['TITLE'].tolist()[0] if len(df['TITLE']) != 0 else []
     elif selected_year != 2023:
         get_report(selected_year)
 
@@ -93,20 +93,23 @@ def set_reason_cost_options(selected_year, df=df):
     State('years-dropdown', 'value'),
     prevent_initial_call=True)
 def set_display_children(title, time_range, year):
+    if len(title) == 0:
+        return None
 
-    get_report(year)
+    else:
+        get_report(year)
 
-    PATH = pathlib.Path(__file__).parent
-    DATA_PATH = PATH.joinpath("../datasets").resolve()
+        PATH = pathlib.Path(__file__).parent
+        DATA_PATH = PATH.joinpath("../datasets").resolve()
 
-    df = pd.read_csv(DATA_PATH.joinpath('report_{}.csv'.format(year)))
-    filtered_df = df[df['TITLE'] == title].replace(np.nan, 0)
-    # select only columns within the time range
-    filtered_df = filtered_df.iloc[:, time_range[0]+1:time_range[1]+2]
-    x = filtered_df.columns.tolist()
-    y = filtered_df.iloc[0, :].tolist() if filtered_df.size > 0 else []
-    # Use the new DataFrame to create a Plotly line chart
-    fig = px.line(x=x, y=y)
-    fig.update_layout(title=title, xaxis_title='time', yaxis_title=title)
+        df = pd.read_csv(DATA_PATH.joinpath('report_{}.csv'.format(year)))
+        filtered_df = df[df['TITLE'] == title].replace(np.nan, 0)
+        # select only columns within the time range
+        filtered_df = filtered_df.iloc[:, time_range[0]+1:time_range[1]+2]
+        x = filtered_df.columns.tolist()
+        y = filtered_df.iloc[0, :].tolist() if filtered_df.size > 0 else []
+        # Use the new DataFrame to create a Plotly line chart
+        fig = px.line(x=x, y=y)
+        fig.update_layout(title=title, xaxis_title='time', yaxis_title=title)
 
-    return fig
+        return fig

@@ -1,3 +1,4 @@
+# This file has moved to alembic revisions
 
 import mysql.connector
 from mysql.connector import errorcode
