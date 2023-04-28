@@ -27,6 +27,16 @@ layout = html.Div([
     ], className="item-input"),
 
     html.Div(children=[
+        dbc.Label("Source", html_for="dropdown"),
+        dcc.Dropdown(
+            id='source-dropdown',
+            options=[{'label': i, 'value': i} for i in all_options['Input']],
+            placeholder="select a source",
+        )
+    ], className="item-input", id='source-div', style={'display': 'none'}),
+
+
+    html.Div(children=[
         dbc.Label("Reason", html_for="dropdown"),
         dcc.Dropdown(id='cost-reason-dropdown', placeholder="selec a reason"),
     ], className="item-input"),
@@ -57,7 +67,7 @@ layout = html.Div([
 ])
 
 
-def summarized_results(reason, category, amount, date):
+def summarized_results(reason, category, amount, date, source):
     dict_data = {}
     if category is not None:
         if amount is not None:
@@ -65,6 +75,7 @@ def summarized_results(reason, category, amount, date):
             dict_data['reason'] = reason
             dict_data['value'] = amount
             dict_data['import_date'] = date
+            dict_data['source'] = source
             print(dict_data)
             response = requests.post(
                 'http://127.0.0.1:5000/api/v1/import_data', json=dict_data).content
@@ -83,13 +94,16 @@ def summarized_results(reason, category, amount, date):
 
 
 @app.callback(
-    Output('cost-reason-dropdown', 'options'),
+    [Output('cost-reason-dropdown', 'options'),
+     Output('source-div', 'style')],
     [Input('categories-dropdown', 'value')])
 def set_reason_cost_options(selected_category):
     if selected_category is None:
-        return []
+        return [], {'display': 'none'}
+    elif selected_category == 'Cost':
+        return [{'label': i, 'value': i} for i in all_options[selected_category]], {'display': 'block'}
     else:
-        return [{'label': i, 'value': i} for i in all_options[selected_category]]
+        return [{'label': i, 'value': i} for i in all_options[selected_category]], {'display': 'none'}
 
 
 @app.callback(
@@ -97,7 +111,20 @@ def set_reason_cost_options(selected_category):
     [Input('cost-reason-dropdown', 'options')])
 def set_reason_cost_value(available_options):
     if len(available_options) == 0:
-        return ''
+        return None
+    else:
+        return available_options[0]['value']
+
+
+@app.callback(
+    Output('source-dropdown', 'value'),
+    [Input('source-dropdown', 'options'),
+     Input('source-div', 'style')])
+def set_source_value(available_options, display_source):
+    if len(available_options) == 0:
+        return None
+    elif display_source['display'] == 'none':
+        return None
     else:
         return available_options[0]['value']
 
@@ -108,12 +135,13 @@ def set_reason_cost_value(available_options):
     [State('categories-dropdown', 'value'),
      State('cost-reason-dropdown', 'value'),
      State("dtrue", "value"),
-     State('my-date-picker-single', 'date')])
-def set_display_children(n_clicks, selected_category, selected_cost_reason, input_number, date):
+     State('my-date-picker-single', 'date'),
+     State('source-dropdown', 'value'),])
+def set_display_children(n_clicks, selected_category, selected_cost_reason, input_number, date, source):
     if n_clicks is None:
         return ''
 
     if n_clicks > 0:
-        return summarized_results(selected_cost_reason, selected_category, input_number, date)
+        return summarized_results(selected_cost_reason, selected_category, input_number, date, source)
     else:
         return ''

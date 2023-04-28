@@ -47,7 +47,8 @@ def api_dropdown_import_data():
         reason = json_data['reason']
         value = json_data['value']
         import_date = json_data['import_date']
-        import_list = (category, reason, value, import_date)
+        source = json_data["source"] if "source" in json_data else None
+        import_list = (category, reason, value, import_date, source)
         result = import_data_query(import_list)
         if result is True:
             response = flask.jsonify({
