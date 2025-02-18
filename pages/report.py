@@ -23,7 +23,7 @@ def get_report_df(year):
 
 
 df = get_report_df(2023)
-report_year = [2022, 2023, 2024]
+report_year = [2022, 2023, 2024, 2025]
 report_type = ['Cost', 'Input', 'Income']
 
 
@@ -38,7 +38,7 @@ layout = html.Div([
                     className='costumized-dd',
                     options=[{'label': str(year), 'value': year}
                              for year in report_year],
-                    value='2023',
+                    value='2025',
                     placeholder="select a year"
                 ),
 

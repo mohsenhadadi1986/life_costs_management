@@ -22,7 +22,7 @@ DATA_PATH = PATH.joinpath("../datasets").resolve()
 
 df = pd.read_csv(DATA_PATH.joinpath('report_{}.csv'.format(2023)))
 
-report_year = [2022, 2023]
+report_year = [2022, 2023, 2024, 2025]
 
 layout = html.Div([
     html.H1('Analytics'),
@@ -31,7 +31,7 @@ layout = html.Div([
         dcc.Dropdown(
             id='years-dropdown',
             options=report_year,
-            value='2023',
+            value='2025',
             placeholder="select a year"
         )
     ], className="item-input"),
